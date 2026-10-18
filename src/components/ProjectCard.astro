@@ -1,0 +1,16 @@
+---
+import Icon from './Icon.astro';
+import { serviceTitle, type Project } from '../lib/content';
+interface Props { project: Project; class?: string }
+const { project, class: cls } = Astro.props;
+---
+<a href={`/projects/${project.slug}`} class:list={['project', cls]} data-service={project.service}>
+  <img src={project.image} alt="" loading="lazy">
+  <div class="project-info">
+    <div>
+      <small>{serviceTitle(project.service)}{project.location && ` · ${project.location}`}</small>
+      <h3>{project.title}</h3>
+    </div>
+    <span class="project-go"><Icon name="arrow" class="arrow" /></span>
+  </div>
+</a>

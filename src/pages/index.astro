@@ -1,0 +1,92 @@
+---
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import SectionHead from '../components/SectionHead.astro';
+import ServiceCard from '../components/ServiceCard.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import Stats from '../components/Stats.astro';
+import Process from '../components/Process.astro';
+import Areas from '../components/Areas.astro';
+import Reviews from '../components/Reviews.astro';
+import ContactBlock from '../components/ContactBlock.astro';
+import { home, services, projects, rich } from '../lib/content';
+
+const { hero, about } = home;
+const featured = projects.filter((p) => p.featured).slice(0, 5);
+const layout = ['p1', 'p2', 'p3', 'p4', 'p5'];
+---
+<Base title={home.seo.title || undefined} description={home.seo.description || undefined}>
+  <div class="hero wrap">
+    <div class="hero-card">
+      <img src={hero.image} alt={hero.imageAlt} fetchpriority="high">
+      <div class="hero-content">
+        <div>
+          {hero.tag && <div class="hero-tag"><span class="dot"></span> {hero.tag}</div>}
+          <h1 set:html={rich(hero.title)} />
+        </div>
+        <div class="hero-side">
+          <p>{hero.text}</p>
+          <div class="hero-actions">
+            <a href={hero.primaryCta.link} class="btn btn-primary">{hero.primaryCta.label} <Icon name="arrow" class="arrow" /></a>
+            {hero.secondaryCta.label && <a href={hero.secondaryCta.link} class="btn btn-ghost">{hero.secondaryCta.label}</a>}
+          </div>
+        </div>
+      </div>
+    </div>
+    <Stats />
+  </div>
+
+  <section id="services">
+    <div class="wrap">
+      <SectionHead eyebrow={home.services.eyebrow} title={home.services.title} text={home.services.text} />
+      <div class="services">
+        {services.slice(0, 5).map((s, i) => <ServiceCard service={s} index={i} />)}
+        <article class="service feature">
+          <span class="eyebrow">{home.services.featureEyebrow}</span>
+          <div>
+            <h3>{home.services.featureTitle}</h3>
+            <p style="margin:14px 0 26px">{home.services.featureText}</p>
+            <a href={home.services.featureCta.link} class="btn btn-primary">{home.services.featureCta.label}</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="about" class="about">
+    <div class="wrap about-grid">
+      <div class="about-media">
+        <img src={about.image} alt={about.imageAlt} loading="lazy">
+        {about.badgeValue && <div class="about-badge"><b>{about.badgeValue}</b><span>{about.badgeLabel}</span></div>}
+      </div>
+      <div>
+        <span class="eyebrow">{about.eyebrow}</span>
+        <h2 style="margin-top:14px" set:html={rich(about.title)} />
+        <p class="lead">{about.text}</p>
+        <ul class="checks">
+          {about.points.map((p) => <li><Icon name="check" size={20} />{p}</li>)}
+        </ul>
+        <a href={about.cta.link} class="btn btn-primary">{about.cta.label}</a>
+      </div>
+    </div>
+  </section>
+
+  <Process />
+
+  {featured.length > 0 && (
+    <section id="projects" class="projects-sec">
+      <div class="wrap">
+        <SectionHead eyebrow={home.projects.eyebrow} title={home.projects.title}>
+          <a href={home.projects.cta.link} class="btn btn-outline">{home.projects.cta.label} <Icon name="arrow" class="arrow" /></a>
+        </SectionHead>
+        <div class="projects">
+          {featured.map((p, i) => <ProjectCard project={p} class={layout[i]} />)}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <Areas />
+  <Reviews />
+  <ContactBlock />
+</Base>

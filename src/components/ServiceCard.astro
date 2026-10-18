@@ -1,0 +1,17 @@
+---
+import Icon from './Icon.astro';
+import type { Service } from '../lib/content';
+interface Props { service: Service; index: number }
+const { service, index } = Astro.props;
+---
+<article class="service">
+  <a class="service-img" href={`/services/${service.slug}`} tabindex="-1" aria-hidden="true">
+    <img src={service.image} alt="" loading="lazy" width="600" height="450">
+  </a>
+  <div class="service-body">
+    <span class="service-num">{String(index + 1).padStart(2, '0')}</span>
+    <h3>{service.title}</h3>
+    <p>{service.summary}</p>
+    <a class="more" href={`/services/${service.slug}`}>Learn more <Icon name="arrow" class="arrow" /><span class="skip">about {service.title}</span></a>
+  </div>
+</article>

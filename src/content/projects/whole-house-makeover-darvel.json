@@ -1,0 +1,15 @@
+{
+  "title": "Whole-house makeover",
+  "service": "renovations",
+  "location": "Darvel",
+  "date": "2024-09-01",
+  "featured": true,
+  "order": 5,
+  "image": "https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=1600&q=80",
+  "summary": "A full refurbishment of a 1970s family home, inside and out.",
+  "body": "New kitchen, knock-through between the kitchen and dining room, replastering throughout, new flooring and a refreshed exterior.",
+  "gallery": [
+    "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1600&q=80",
+    "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&w=1600&q=80"
+  ]
+}

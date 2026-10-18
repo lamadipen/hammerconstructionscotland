@@ -1,0 +1,14 @@
+{
+  "title": "Block-paved driveway",
+  "service": "driveways",
+  "location": "Galston",
+  "date": "2025-04-01",
+  "featured": true,
+  "order": 2,
+  "image": "https://images.unsplash.com/photo-1558036117-15d82a90b9b1?auto=format&fit=crop&w=1600&q=80",
+  "summary": "A full dig-out and new block-paved driveway with parking for three cars.",
+  "body": "The old driveway had sunk and was letting water pool against the house. We excavated, laid a new compacted sub-base with drainage, and finished with block paving and contrasting edging.",
+  "gallery": [
+    "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=1600&q=80"
+  ]
+}

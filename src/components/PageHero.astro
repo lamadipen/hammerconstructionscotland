@@ -1,0 +1,22 @@
+---
+import { rich } from '../lib/content';
+interface Props { eyebrow?: string; title: string; text?: string; image?: string; crumbs?: { label: string; link?: string }[] }
+const { eyebrow, title, text, image, crumbs } = Astro.props;
+---
+<div class="page-hero wrap">
+  <div class="page-hero-card">
+    {image && <img src={image} alt="" fetchpriority="high">}
+    <div class="page-hero-content">
+      {crumbs && (
+        <nav class="crumbs" aria-label="Breadcrumb">
+          <a href="/">Home</a>
+          {crumbs.map((c) => <><span>/</span>{c.link ? <a href={c.link}>{c.label}</a> : <span aria-current="page">{c.label}</span>}</>)}
+        </nav>
+      )}
+      {eyebrow && <span class="eyebrow">{eyebrow}</span>}
+      <h1 set:html={rich(title)} />
+      {text && <p>{text}</p>}
+      <slot />
+    </div>
+  </div>
+</div>

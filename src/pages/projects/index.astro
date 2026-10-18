@@ -1,0 +1,49 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+import ContactBlock from '../../components/ContactBlock.astro';
+import { home, projects, services } from '../../lib/content';
+
+// Only offer filters for services that actually have projects.
+const filters = services.filter((s) => projects.some((p) => p.service === s.slug));
+---
+<Base title="Our projects" description="Recent driveways, extensions, loft conversions and renovations completed across East Ayrshire.">
+  <PageHero
+    eyebrow={home.projects.eyebrow}
+    title="Our projects"
+    text="A selection of recent work across Kilmarnock and East Ayrshire."
+    image={projects[0]?.image}
+    crumbs={[{ label: 'Projects' }]}
+  />
+  <section>
+    <div class="wrap">
+      {filters.length > 1 && (
+        <div class="filters" role="group" aria-label="Filter projects" style="margin-bottom:36px">
+          <button class="on" data-filter="all" aria-pressed="true">All</button>
+          {filters.map((s) => <button data-filter={s.slug} aria-pressed="false">{s.title}</button>)}
+        </div>
+      )}
+      <div class="project-grid" id="project-grid">
+        {projects.map((p) => <ProjectCard project={p} />)}
+        {projects.length === 0 && <p class="project-empty">Projects coming soon.</p>}
+      </div>
+    </div>
+  </section>
+  <ContactBlock />
+</Base>
+
+<script>
+  const buttons = document.querySelectorAll<HTMLButtonElement>('[data-filter]');
+  const cards = document.querySelectorAll<HTMLElement>('#project-grid .project');
+  buttons.forEach((btn) =>
+    btn.addEventListener('click', () => {
+      const filter = btn.dataset.filter;
+      buttons.forEach((b) => {
+        b.classList.toggle('on', b === btn);
+        b.setAttribute('aria-pressed', String(b === btn));
+      });
+      cards.forEach((c) => (c.hidden = filter !== 'all' && c.dataset.service !== filter));
+    }),
+  );
+</script>

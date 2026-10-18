@@ -1,0 +1,14 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import ContactBlock from '../components/ContactBlock.astro';
+import Areas from '../components/Areas.astro';
+import { contact } from '../lib/content';
+const { hero } = contact;
+---
+<Base title={contact.seo.title} description={contact.seo.description}>
+  <PageHero eyebrow={hero.eyebrow} title={hero.title} text={hero.text} image={hero.image} crumbs={[{ label: 'Contact' }]} />
+  <div style="padding-top:110px"></div>
+  <ContactBlock />
+  <Areas />
+</Base>

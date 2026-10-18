@@ -1,0 +1,26 @@
+{
+  "seo": { "title": "About us", "description": "Meet Hammer Construction Scotland, a local building team based in Shortlees, Kilmarnock." },
+  "hero": {
+    "eyebrow": "About us",
+    "title": "Your local building team",
+    "text": "Hammer Construction Scotland is a hands-on building company based in Shortlees, serving homeowners right across East Ayrshire.",
+    "image": "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1600&q=80"
+  },
+  "story": {
+    "eyebrow": "Our story",
+    "title": "Craftsmanship you can rely on",
+    "body": "Hammer Construction Scotland, based in the heart of Shortlees, is your go-to solution for construction across East Ayrshire. As driveway contractors, builders and specialists in extensions, loft conversions and renovations, we pride ourselves on turning your plans into reality.\n\nEvery project is different, so we tailor our work to your needs, your home and your budget. We use high-quality materials and proven techniques so the result looks great and lasts.\n\nFrom the first visit to the final clean-up, you deal with the same team. We keep you updated, we turn up when we say we will, and we leave your home tidy.",
+    "image": "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&w=1100&q=80",
+    "imageAlt": "Building site with scaffolding"
+  },
+  "values": {
+    "eyebrow": "What we stand for",
+    "title": "Why homeowners choose us",
+    "items": [
+      { "title": "Honest pricing", "text": "Clear, written quotes with no hidden extras. You know the cost before we start." },
+      { "title": "Quality first", "text": "Proper foundations, good materials and careful finishing on every job." },
+      { "title": "Clear communication", "text": "One point of contact who keeps you updated at every stage." },
+      { "title": "Respect for your home", "text": "Tidy sites, protected floors and a full clean-up when we finish." }
+    ]
+  }
+}

@@ -1,0 +1,38 @@
+---
+import Icon from './Icon.astro';
+import { home, site, rich } from '../lib/content';
+const { eyebrow, title, text } = home.areas;
+// Approximate positions on the decorative map, relative to Shortlees in the centre.
+const labels: Record<string, [number, number]> = {
+  Kilmarnock: [190, 150], Galston: [330, 175], Newmilns: [395, 210], Darvel: [440, 235],
+  Stewarton: [150, 80], Cumnock: [300, 350],
+};
+---
+<section id="areas">
+  <div class="wrap areas-grid">
+    <div>
+      <span class="eyebrow">{eyebrow}</span>
+      <h2 style="margin-top:14px" set:html={rich(title)} />
+      <p style="color:var(--muted);font-size:17px;margin-top:18px;max-width:480px">{text}</p>
+      <ul class="chips" style="list-style:none">
+        {site.areas.map((a) => <li class="chip"><Icon name="pin" size={14} />{a}</li>)}
+      </ul>
+    </div>
+    <div class="map-card" role="img" aria-label={`Map of our service area around ${site.mapLabel}`}>
+      <svg class="map" viewBox="0 0 500 400" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+        <rect width="500" height="400" fill="#ECE7DD"/>
+        <path d="M0 260 C120 230 180 300 300 260 S460 200 500 230 L500 400 L0 400Z" fill="#E2DCCF"/>
+        <path d="M-10 120 C100 140 160 90 260 130 S420 170 520 110" fill="none" stroke="#fff" stroke-width="10"/>
+        <path d="M120 -10 C140 100 200 160 230 200 S260 330 240 410" fill="none" stroke="#fff" stroke-width="8"/>
+        <path d="M300 -10 C290 80 330 150 380 210 S470 300 510 330" fill="none" stroke="#fff" stroke-width="6"/>
+        <path d="M0 330 C90 310 190 340 260 320" fill="none" stroke="#C9DDE6" stroke-width="8"/>
+        <circle cx="250" cy="192" r="120" fill="rgba(235,170,60,.16)" stroke="#EBAA3C" stroke-width="2" stroke-dasharray="6 6"/>
+        <circle cx="250" cy="192" r="8" fill="#E8742C"/>
+        <g font-family="Inter, sans-serif" font-size="12" font-weight="600" fill="#6B6760">
+          {site.areas.filter((a) => labels[a]).map((a) => <text x={labels[a][0]} y={labels[a][1]}>{a}</text>)}
+        </g>
+      </svg>
+      <div class="map-pin">{site.mapLabel}</div>
+    </div>
+  </div>
+</section>

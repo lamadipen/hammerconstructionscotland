@@ -1,0 +1,344 @@
+# CMS configuration. Every save commits the JSON file to GitHub, which
+# triggers the GitHub Action that rebuilds and deploys to Firebase Hosting.
+backend:
+  name: github
+  repo: lamadipen/hammerconstructionscotland
+  branch: main
+  commit_messages:
+    create: "content: create {{collection}} “{{slug}}”"
+    update: "content: update {{collection}} “{{slug}}”"
+    delete: "content: delete {{collection}} “{{slug}}”"
+    uploadMedia: "content: upload “{{path}}”"
+    deleteMedia: "content: delete “{{path}}”"
+
+site_url: https://hammerconstructionscotland.web.app
+display_url: https://hammerconstructionscotland.web.app
+logo_url: /images/logo-mark.jpg
+
+media_folder: public/uploads
+public_folder: /uploads
+
+# Resize and convert uploaded photos so pages stay fast.
+media_libraries:
+  default:
+    config:
+      transformations:
+        raster_image:
+          format: webp
+          quality: 82
+          width: 2000
+          height: 2000
+
+collections:
+  # ─── Single files ───────────────────────────────────────────────
+  - name: settings
+    label: Site settings
+    icon: settings
+    files:
+      - name: site
+        label: Company & contact details
+        file: src/content/settings/site.json
+        format: json
+        fields:
+          - { name: name, label: Company name, widget: string }
+          - { name: shortName, label: Short name (logo line 1), widget: string }
+          - { name: tagline, label: Logo line 2, widget: string }
+          - { name: seoTitle, label: Home page title suffix (SEO), widget: string }
+          - { name: description, label: Default SEO description, widget: text }
+          - { name: siteUrl, label: Website address, widget: string, hint: "e.g. https://hammerconstructionscotland.co.uk" }
+          - { name: ogImage, label: Default social sharing image, widget: image }
+          - { name: owner, label: Owner / contact name, widget: string }
+          - { name: phone, label: Phone, widget: string }
+          - { name: email, label: Email, widget: string }
+          - { name: address, label: Address, widget: string }
+          - { name: mapLabel, label: Map pin label, widget: string }
+          - { name: hours, label: Opening hours, widget: string, required: false }
+          - name: areas
+            label: Areas covered
+            widget: list
+            field: { name: area, label: Area, widget: string }
+          - name: formEndpoint
+            label: Contact form endpoint
+            widget: string
+            required: false
+            hint: "Optional. Paste a Formspree (or similar) form URL to receive enquiries by email. Leave blank to open the visitor's email app instead."
+          - name: headerCta
+            label: Header button
+            widget: object
+            fields:
+              - { name: label, label: Label, widget: string }
+              - { name: link, label: Link, widget: string }
+          - name: nav
+            label: Main menu
+            widget: list
+            summary: "{{fields.label}}"
+            fields:
+              - { name: label, label: Label, widget: string }
+              - { name: link, label: Link, widget: string }
+          - name: social
+            label: Social links
+            widget: object
+            fields:
+              - { name: facebook, label: Facebook URL, widget: string, required: false }
+              - { name: instagram, label: Instagram URL, widget: string, required: false }
+          - { name: footerText, label: Footer text, widget: text }
+
+  - name: pages
+    label: Pages
+    icon: description
+    files:
+      - name: home
+        label: Home page
+        file: src/content/pages/home.json
+        format: json
+        fields:
+          - &seo
+            name: seo
+            label: SEO
+            widget: object
+            collapsed: true
+            fields:
+              - { name: title, label: Page title, widget: string, required: false }
+              - { name: description, label: Meta description, widget: text, required: false }
+          - name: hero
+            label: Hero
+            widget: object
+            fields:
+              - { name: tag, label: Small badge text, widget: string, required: false }
+              - { name: title, label: Headline, widget: text, hint: "Wrap a word in *asterisks* to highlight it. Use a new line for a line break." }
+              - { name: text, label: Intro text, widget: text }
+              - { name: image, label: Background image, widget: image }
+              - { name: imageAlt, label: Image description, widget: string }
+              - name: primaryCta
+                label: Main button
+                widget: object
+                fields:
+                  - { name: label, label: Label, widget: string }
+                  - { name: link, label: Link, widget: string }
+              - name: secondaryCta
+                label: Second button
+                widget: object
+                fields:
+                  - { name: label, label: Label, widget: string }
+                  - { name: link, label: Link, widget: string }
+          - name: stats
+            label: Stats bar
+            widget: list
+            summary: "{{fields.value}}{{fields.suffix}} {{fields.label}}"
+            fields:
+              - { name: value, label: Number, widget: string }
+              - { name: suffix, label: Suffix, widget: string, required: false, hint: "e.g. +, %, yr, ★" }
+              - { name: label, label: Label, widget: string }
+          - name: services
+            label: Services section
+            widget: object
+            fields:
+              - { name: eyebrow, label: Small heading, widget: string }
+              - { name: title, label: Title, widget: string }
+              - { name: text, label: Text, widget: text }
+              - { name: featureEyebrow, label: Highlight card small heading, widget: string }
+              - { name: featureTitle, label: Highlight card title, widget: string }
+              - { name: featureText, label: Highlight card text, widget: text }
+              - name: featureCta
+                label: Highlight card button
+                widget: object
+                fields:
+                  - { name: label, label: Label, widget: string }
+                  - { name: link, label: Link, widget: string }
+          - name: about
+            label: About section
+            widget: object
+            fields:
+              - { name: eyebrow, label: Small heading, widget: string }
+              - { name: title, label: Title, widget: text }
+              - { name: text, label: Text, widget: text }
+              - { name: image, label: Image, widget: image }
+              - { name: imageAlt, label: Image description, widget: string }
+              - { name: badgeValue, label: Badge number, widget: string, required: false }
+              - { name: badgeLabel, label: Badge label, widget: string, required: false }
+              - name: points
+                label: Tick list
+                widget: list
+                field: { name: point, label: Point, widget: string }
+              - name: cta
+                label: Button
+                widget: object
+                fields:
+                  - { name: label, label: Label, widget: string }
+                  - { name: link, label: Link, widget: string }
+          - name: process
+            label: How it works
+            widget: object
+            fields:
+              - { name: eyebrow, label: Small heading, widget: string }
+              - { name: title, label: Title, widget: string }
+              - name: steps
+                label: Steps
+                widget: list
+                summary: "{{fields.title}}"
+                fields:
+                  - { name: title, label: Title, widget: string }
+                  - { name: text, label: Text, widget: text }
+          - name: projects
+            label: Featured projects section
+            widget: object
+            fields:
+              - { name: eyebrow, label: Small heading, widget: string }
+              - { name: title, label: Title, widget: string }
+              - name: cta
+                label: Button
+                widget: object
+                fields:
+                  - { name: label, label: Label, widget: string }
+                  - { name: link, label: Link, widget: string }
+          - name: areas
+            label: Areas section
+            widget: object
+            fields:
+              - { name: eyebrow, label: Small heading, widget: string }
+              - { name: title, label: Title, widget: string }
+              - { name: text, label: Text, widget: text }
+          - name: reviews
+            label: Testimonials section
+            widget: object
+            fields:
+              - { name: eyebrow, label: Small heading, widget: string }
+              - { name: title, label: Title, widget: string }
+              - { name: text, label: Text, widget: text }
+
+      - name: about
+        label: About page
+        file: src/content/pages/about.json
+        format: json
+        fields:
+          - *seo
+          - &pagehero
+            name: hero
+            label: Page header
+            widget: object
+            fields:
+              - { name: eyebrow, label: Small heading, widget: string }
+              - { name: title, label: Title, widget: string }
+              - { name: text, label: Text, widget: text }
+              - { name: image, label: Background image, widget: image }
+          - name: story
+            label: Our story
+            widget: object
+            fields:
+              - { name: eyebrow, label: Small heading, widget: string }
+              - { name: title, label: Title, widget: string }
+              - { name: body, label: Story, widget: markdown }
+              - { name: image, label: Image, widget: image }
+              - { name: imageAlt, label: Image description, widget: string }
+          - name: values
+            label: Values
+            widget: object
+            fields:
+              - { name: eyebrow, label: Small heading, widget: string }
+              - { name: title, label: Title, widget: string }
+              - name: items
+                label: Items
+                widget: list
+                summary: "{{fields.title}}"
+                fields:
+                  - { name: title, label: Title, widget: string }
+                  - { name: text, label: Text, widget: text }
+
+      - name: contact
+        label: Contact page & form
+        file: src/content/pages/contact.json
+        format: json
+        fields:
+          - *seo
+          - *pagehero
+          - name: cta
+            label: Contact block (shown at the bottom of every page)
+            widget: object
+            fields:
+              - { name: eyebrow, label: Small heading, widget: string }
+              - { name: title, label: Title, widget: string }
+              - { name: text, label: Text, widget: text }
+              - { name: formTitle, label: Form title, widget: string }
+              - { name: successMessage, label: Message after sending, widget: text }
+
+  # ─── Folder collections (one JSON file per entry) ──────────────
+  - name: services
+    label: Services
+    label_singular: Service
+    icon: construction
+    folder: src/content/services
+    format: json
+    extension: json
+    create: true
+    delete: true
+    slug: "{{slug}}"
+    identifier_field: title
+    sortable_fields: [order, title]
+    summary: "{{order}}. {{title}}"
+    fields:
+      - { name: title, label: Title, widget: string }
+      - { name: order, label: Display order, widget: number, value_type: int, default: 10 }
+      - { name: summary, label: Short summary (cards), widget: text }
+      - { name: image, label: Image, widget: image }
+      - { name: intro, label: Intro paragraph, widget: text, required: false }
+      - { name: body, label: Details, widget: markdown, required: false }
+      - name: features
+        label: What's included
+        widget: list
+        required: false
+        field: { name: feature, label: Item, widget: string }
+
+  - name: projects
+    label: Projects
+    label_singular: Project
+    icon: photo_library
+    folder: src/content/projects
+    format: json
+    extension: json
+    create: true
+    delete: true
+    slug: "{{slug}}"
+    identifier_field: title
+    sortable_fields: [order, date, title]
+    summary: "{{title}} · {{location}}"
+    fields:
+      - { name: title, label: Title, widget: string }
+      - name: service
+        label: Service
+        widget: relation
+        collection: services
+        value_field: "{{slug}}"
+        search_fields: [title]
+        display_fields: [title]
+      - { name: location, label: Location, widget: string, required: false }
+      - { name: date, label: Completed, widget: datetime, time_format: false, format: "YYYY-MM-DD", required: false }
+      - { name: featured, label: Feature on home page, widget: boolean, default: false, hint: "The first 5 featured projects (by display order) appear on the home page." }
+      - { name: order, label: Display order, widget: number, value_type: int, default: 10 }
+      - { name: image, label: Main image, widget: image }
+      - { name: summary, label: Short summary, widget: text }
+      - { name: body, label: Write-up, widget: markdown, required: false }
+      - name: gallery
+        label: Gallery
+        widget: list
+        required: false
+        field: { name: image, label: Image, widget: image }
+
+  - name: testimonials
+    label: Testimonials
+    label_singular: Testimonial
+    icon: reviews
+    folder: src/content/testimonials
+    format: json
+    extension: json
+    create: true
+    delete: true
+    slug: "{{slug}}"
+    identifier_field: name
+    summary: "{{name}} · {{service}}"
+    fields:
+      - { name: name, label: Customer name, widget: string }
+      - { name: location, label: Location, widget: string, required: false }
+      - { name: service, label: Service, widget: string, required: false }
+      - { name: rating, label: Rating, widget: number, value_type: int, min: 1, max: 5, default: 5 }
+      - { name: order, label: Display order, widget: number, value_type: int, default: 10 }
+      - { name: quote, label: Review, widget: text }

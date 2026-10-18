@@ -1,0 +1,63 @@
+{
+  "seo": { "title": "", "description": "" },
+  "hero": {
+    "tag": "Now booking projects across East Ayrshire",
+    "title": "Built *solid.*\nBuilt to last.",
+    "text": "Driveways, extensions, loft conversions and full renovations in Kilmarnock, Galston, Newmilns and beyond. Quality work and a clear price from the first visit.",
+    "image": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=2000&q=80",
+    "imageAlt": "Modern house extension with large glazing",
+    "primaryCta": { "label": "Get a free quote", "link": "/contact" },
+    "secondaryCta": { "label": "View our work", "link": "/projects" }
+  },
+  "stats": [
+    { "value": "150", "suffix": "+", "label": "Projects completed" },
+    { "value": "5", "suffix": "★", "label": "Customer rated" },
+    { "value": "10", "suffix": "yr", "label": "Workmanship guarantee" },
+    { "value": "100", "suffix": "%", "label": "Free, no-obligation quotes" }
+  ],
+  "services": {
+    "eyebrow": "What we do",
+    "title": "Our services",
+    "text": "From a new driveway to a complete home transformation, one team handles the whole job from planning to the final clean-up.",
+    "featureEyebrow": "Not sure where to start?",
+    "featureTitle": "Tell us about your project",
+    "featureText": "We'll visit, talk it through and give you a clear written quote. No pressure, no hidden extras.",
+    "featureCta": { "label": "Book a site visit", "link": "/contact" }
+  },
+  "about": {
+    "eyebrow": "About Hammer",
+    "title": "Local builders.\nReal craftsmanship.",
+    "text": "Based in Shortlees, we're a hands-on team of builders and driveway specialists. Every project is planned around your needs and budget, and we keep you informed from the first drawing to the last brick.",
+    "image": "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&w=1100&q=80",
+    "imageAlt": "Construction site with scaffolding",
+    "badgeValue": "2023",
+    "badgeLabel": "Serving East Ayrshire",
+    "points": ["Fully insured & vetted", "Fixed, written quotes", "High-quality materials", "Tidy, respectful crews", "Planning & warrant help", "On time, on budget"],
+    "cta": { "label": "More about us", "link": "/about" }
+  },
+  "process": {
+    "eyebrow": "How it works",
+    "title": "Simple from start to finish",
+    "steps": [
+      { "title": "Free consultation", "text": "We visit, listen to your ideas and look at the space." },
+      { "title": "Clear quote", "text": "A detailed written price with timescales. No surprises." },
+      { "title": "We build", "text": "Our team gets to work, keeping the site safe and tidy." },
+      { "title": "Handover", "text": "A final walk-through together, backed by our guarantee." }
+    ]
+  },
+  "projects": {
+    "eyebrow": "Recent work",
+    "title": "Featured projects",
+    "cta": { "label": "See all projects", "link": "/projects" }
+  },
+  "areas": {
+    "eyebrow": "Where we work",
+    "title": "Proudly serving East Ayrshire",
+    "text": "Based in Shortlees, we cover Kilmarnock and the surrounding towns and villages. Not on the list? Get in touch anyway."
+  },
+  "reviews": {
+    "eyebrow": "Testimonials",
+    "title": "What customers say",
+    "text": "We're proud of the work we do and the people we do it for."
+  }
+}

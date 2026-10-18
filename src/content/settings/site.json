@@ -1,0 +1,30 @@
+{
+  "name": "Hammer Construction Scotland",
+  "shortName": "Hammer Construction",
+  "tagline": "Scotland",
+  "seoTitle": "Builders in Kilmarnock & East Ayrshire",
+  "description": "Builders, driveway contractors, extensions, loft conversions and renovations across Kilmarnock and East Ayrshire.",
+  "siteUrl": "https://hammerconstructionscotland.web.app",
+  "ogImage": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1600&q=80",
+  "owner": "Ashish Adhikari",
+  "phone": "07XXX XXX XXX",
+  "email": "info@hammerconstructionscotland.co.uk",
+  "address": "Shortlees, Kilmarnock, East Ayrshire",
+  "mapLabel": "Shortlees, Kilmarnock",
+  "hours": "Mon–Fri 8am–6pm, Sat 9am–1pm",
+  "areas": ["Kilmarnock", "Shortlees", "Galston", "Newmilns", "Darvel", "Stewarton", "Cumnock", "Greenholm"],
+  "formEndpoint": "",
+  "headerCta": { "label": "Free Quote", "link": "/contact" },
+  "nav": [
+    { "label": "Services", "link": "/services" },
+    { "label": "Projects", "link": "/projects" },
+    { "label": "About", "link": "/about" },
+    { "label": "Areas", "link": "/#areas" },
+    { "label": "Contact", "link": "/contact" }
+  ],
+  "social": {
+    "facebook": "",
+    "instagram": ""
+  },
+  "footerText": "Builders, driveway contractors, extensions, loft conversions and renovations across East Ayrshire."
+}

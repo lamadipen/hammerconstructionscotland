@@ -1,0 +1,43 @@
+---
+import Icon from './Icon.astro';
+import { site, services, telHref } from '../lib/content';
+const year = new Date().getFullYear();
+---
+<footer>
+  <div class="wrap">
+    <div class="foot-top">
+      <div class="foot-brand">
+        <span class="brand-text">{site.shortName}<small>{site.tagline}</small></span>
+        <p>{site.footerText}</p>
+        {(site.social.facebook || site.social.instagram) && (
+          <div style="display:flex;gap:14px;margin-top:20px">
+            {site.social.facebook && <a href={site.social.facebook} aria-label="Facebook" rel="noopener" target="_blank"><Icon name="facebook" size={22} /></a>}
+            {site.social.instagram && <a href={site.social.instagram} aria-label="Instagram" rel="noopener" target="_blank"><Icon name="instagram" size={22} /></a>}
+          </div>
+        )}
+      </div>
+      <div>
+        <h4>Services</h4>
+        <ul>{services.map((s) => <li><a href={`/services/${s.slug}`}>{s.title}</a></li>)}</ul>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <ul>{site.nav.map((n) => <li><a href={n.link}>{n.label}</a></li>)}</ul>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <ul>
+          <li><a href={telHref(site.phone)}>{site.phone}</a></li>
+          <li><a href={`mailto:${site.email}`} style="overflow-wrap:anywhere">{site.email}</a></li>
+          <li>{site.address}</li>
+          {site.hours && <li>{site.hours}</li>}
+        </ul>
+      </div>
+    </div>
+    <div class="foot-big" aria-hidden="true">{site.shortName}</div>
+    <div class="foot-bottom">
+      <span>© {year} {site.name}. All rights reserved.</span>
+      <span>Serving {site.areas.slice(0, 4).join(', ')} & East Ayrshire</span>
+    </div>
+  </div>
+</footer>

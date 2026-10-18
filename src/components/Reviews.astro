@@ -1,0 +1,24 @@
+---
+import SectionHead from './SectionHead.astro';
+import { home, testimonials } from '../lib/content';
+const { eyebrow, title, text } = home.reviews;
+---
+{testimonials.length > 0 && (
+  <section style="padding-top:0">
+    <div class="wrap">
+      <SectionHead eyebrow={eyebrow} title={title} text={text} />
+      <div class="reviews">
+        {testimonials.slice(0, 6).map((t) => (
+          <figure class="review">
+            <div class="stars" aria-label={`${t.rating ?? 5} out of 5 stars`}>{'★'.repeat(t.rating ?? 5)}{'☆'.repeat(5 - (t.rating ?? 5))}</div>
+            <blockquote>“{t.quote}”</blockquote>
+            <figcaption class="reviewer">
+              <span class="avatar" aria-hidden="true">{t.name.charAt(0)}</span>
+              <div><b>{t.name}</b><span>{[t.service, t.location].filter(Boolean).join(' · ')}</span></div>
+            </figcaption>
+          </figure>
+        ))}
+      </div>
+    </div>
+  </section>
+)}

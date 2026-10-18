@@ -1,0 +1,12 @@
+{
+  "title": "Bathroom refit",
+  "service": "renovations",
+  "location": "Stewarton",
+  "date": "2024-11-01",
+  "featured": true,
+  "order": 4,
+  "image": "https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?auto=format&fit=crop&w=1600&q=80",
+  "summary": "A complete bathroom strip-out and refit with walk-in shower.",
+  "body": "We stripped the room back to brick, replaced the floor, and fitted a walk-in shower, new sanitaryware and floor-to-ceiling tiling.",
+  "gallery": []
+}

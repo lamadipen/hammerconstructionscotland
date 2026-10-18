@@ -1,0 +1,62 @@
+---
+import Base from '../../layouts/Base.astro';
+import Icon from '../../components/Icon.astro';
+import PageHero from '../../components/PageHero.astro';
+import SectionHead from '../../components/SectionHead.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+import ContactBlock from '../../components/ContactBlock.astro';
+import { projects, md, serviceTitle, formatDate, type Project } from '../../lib/content';
+
+export function getStaticPaths() {
+  return projects.map((project) => ({ params: { slug: project.slug }, props: { project } }));
+}
+
+const { project } = Astro.props as { project: Project };
+const more = projects.filter((p) => p.slug !== project.slug).slice(0, 3);
+---
+<Base title={project.title} description={project.summary} image={project.image}>
+  <PageHero
+    eyebrow={`${serviceTitle(project.service)}${project.location ? ' · ' + project.location : ''}`}
+    title={project.title}
+    text={project.summary}
+    image={project.image}
+    crumbs={[{ label: 'Projects', link: '/projects' }, { label: project.title }]}
+  />
+
+  <section>
+    <div class="wrap detail-grid">
+      <article>
+        <div class="prose" set:html={md(project.body)} />
+        {project.gallery && project.gallery.length > 0 && (
+          <div class="gallery">{project.gallery.map((src) => <img src={src} alt={`${project.title} photo`} loading="lazy">)}</div>
+        )}
+      </article>
+      <aside class="aside">
+        <div class="aside-card">
+          <h3>Project details</h3>
+          <ul class="meta">
+            <li><span>Service</span><b><a href={`/services/${project.service}`}>{serviceTitle(project.service)}</a></b></li>
+            {project.location && <li><span>Location</span><b>{project.location}</b></li>}
+            {project.date && <li><span>Completed</span><b>{formatDate(project.date)}</b></li>}
+          </ul>
+        </div>
+        <div class="aside-card dark">
+          <span class="eyebrow">Planning something similar?</span>
+          <p>We'd love to hear about it. Get a free, no-obligation quote.</p>
+          <a href="#contact" class="btn btn-primary">Get a free quote <Icon name="arrow" class="arrow" /></a>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  {more.length > 0 && (
+    <section class="projects-sec">
+      <div class="wrap">
+        <SectionHead eyebrow="Keep exploring" title="More projects" />
+        <div class="project-grid">{more.map((p) => <ProjectCard project={p} />)}</div>
+      </div>
+    </section>
+  )}
+
+  <ContactBlock service={project.service} />
+</Base>

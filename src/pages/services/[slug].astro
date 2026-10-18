@@ -1,0 +1,71 @@
+---
+import Base from '../../layouts/Base.astro';
+import Icon from '../../components/Icon.astro';
+import PageHero from '../../components/PageHero.astro';
+import SectionHead from '../../components/SectionHead.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+import ServiceCard from '../../components/ServiceCard.astro';
+import ContactBlock from '../../components/ContactBlock.astro';
+import { services, projects, site, md, telHref, type Service } from '../../lib/content';
+
+export function getStaticPaths() {
+  return services.map((service) => ({ params: { slug: service.slug }, props: { service } }));
+}
+
+const { service } = Astro.props as { service: Service };
+const related = projects.filter((p) => p.service === service.slug).slice(0, 3);
+const others = services.filter((s) => s.slug !== service.slug).slice(0, 3);
+---
+<Base title={service.title} description={service.summary} image={service.image}>
+  <PageHero
+    eyebrow="Our services"
+    title={service.title}
+    text={service.summary}
+    image={service.image.replace('w=1200', 'w=2000')}
+    crumbs={[{ label: 'Services', link: '/services' }, { label: service.title }]}
+  />
+
+  <section>
+    <div class="wrap detail-grid">
+      <article>
+        {service.intro && <p class="lead-text">{service.intro}</p>}
+        <div class="prose" set:html={md(service.body)} />
+      </article>
+      <aside class="aside">
+        {service.features && service.features.length > 0 && (
+          <div class="aside-card">
+            <h3>What's included</h3>
+            <ul class="checks">{service.features.map((f) => <li><Icon name="check" size={20} />{f}</li>)}</ul>
+          </div>
+        )}
+        <div class="aside-card dark">
+          <span class="eyebrow">Free quote</span>
+          <p>Tell us about your {service.title.toLowerCase()} project and we'll arrange a free site visit.</p>
+          <a href="#contact" class="btn btn-primary">Request a quote</a>
+          <div class="contact-mini">
+            <a href={telHref(site.phone)}>{site.phone}</a>
+            <a href={`mailto:${site.email}`} style="overflow-wrap:anywhere">{site.email}</a>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  {related.length > 0 && (
+    <section class="projects-sec">
+      <div class="wrap">
+        <SectionHead eyebrow="Recent work" title={`${service.title} projects`} />
+        <div class="project-grid">{related.map((p) => <ProjectCard project={p} />)}</div>
+      </div>
+    </section>
+  )}
+
+  <section>
+    <div class="wrap">
+      <SectionHead eyebrow="More services" title="Other ways we can help" />
+      <div class="services">{others.map((s) => <ServiceCard service={s} index={services.indexOf(s)} />)}</div>
+    </div>
+  </section>
+
+  <ContactBlock service={service.slug} />
+</Base>

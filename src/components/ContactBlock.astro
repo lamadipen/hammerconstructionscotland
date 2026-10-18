@@ -1,0 +1,86 @@
+---
+import Icon from './Icon.astro';
+import { contact, services, site, rich, telHref } from '../lib/content';
+const { eyebrow, title, text, formTitle, successMessage } = contact.cta;
+interface Props { service?: string }
+const { service } = Astro.props;
+---
+<section id="contact" class="cta">
+  <div class="wrap">
+    <div class="cta-card">
+      <div class="cta-left">
+        <span class="eyebrow" style="color:var(--ink)">{eyebrow}</span>
+        <h2 style="margin-top:14px" set:html={rich(title)} />
+        <p>{text}</p>
+        <div class="contact-lines">
+          <a href={telHref(site.phone)}><span class="ic"><Icon name="phone" /></span>{site.phone}</a>
+          <a href={`mailto:${site.email}`}><span class="ic"><Icon name="mail" /></span>{site.email}</a>
+          <div><span class="ic"><Icon name="pin" /></span>{site.address}</div>
+          {site.hours && <div><span class="ic"><Icon name="clock" /></span>{site.hours}</div>}
+        </div>
+      </div>
+      <form
+        class="cta-form"
+        id="quote-form"
+        method="post"
+        action={site.formEndpoint || undefined}
+        data-endpoint={site.formEndpoint}
+        data-email={site.email}
+        data-success={successMessage}
+      >
+        <h3>{formTitle}</h3>
+        <div class="field-row">
+          <label>Name<input type="text" name="name" autocomplete="name" required placeholder="Your name"></label>
+          <label>Phone<input type="tel" name="phone" autocomplete="tel" placeholder="Your number"></label>
+        </div>
+        <label>Email<input type="email" name="email" autocomplete="email" required placeholder="you@example.com"></label>
+        <label>Service
+          <select name="service">
+            {services.map((s) => <option selected={s.slug === service}>{s.title}</option>)}
+            <option>Other</option>
+          </select>
+        </label>
+        <label>Project details<textarea name="message" required placeholder="Tell us a bit about the job"></textarea></label>
+        <input class="hp" type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <p class="form-status" role="status" aria-live="polite"></p>
+        <button class="btn btn-dark" type="submit">Send enquiry <Icon name="arrow" class="arrow" /></button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<script>
+  // No database: enquiries go to a form service (e.g. Formspree) when
+  // `formEndpoint` is set in Site settings, otherwise open the visitor's email app.
+  const form = document.getElementById('quote-form') as HTMLFormElement | null;
+  if (form) {
+    const status = form.querySelector<HTMLElement>('.form-status')!;
+    const button = form.querySelector<HTMLButtonElement>('button[type=submit]')!;
+    const show = (msg: string, ok: boolean) => {
+      status.textContent = msg;
+      status.className = 'form-status ' + (ok ? 'ok' : 'err');
+    };
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const data = new FormData(form);
+      if (data.get('_gotcha')) return;
+      const endpoint = form.dataset.endpoint;
+      if (!endpoint) {
+        const body = `Name: ${data.get('name')}\nPhone: ${data.get('phone')}\nEmail: ${data.get('email')}\nService: ${data.get('service')}\n\n${data.get('message')}`;
+        location.href = `mailto:${form.dataset.email}?subject=${encodeURIComponent(`Quote request: ${data.get('service')}`)}&body=${encodeURIComponent(body)}`;
+        return;
+      }
+      button.disabled = true;
+      try {
+        const res = await fetch(endpoint, { method: 'POST', body: data, headers: { Accept: 'application/json' } });
+        if (!res.ok) throw new Error(String(res.status));
+        form.reset();
+        show(form.dataset.success || 'Thanks, we will be in touch soon.', true);
+      } catch {
+        show(`Sorry, something went wrong. Please call or email us at ${form.dataset.email}.`, false);
+      } finally {
+        button.disabled = false;
+      }
+    });
+  }
+</script>

@@ -1,0 +1,16 @@
+{
+  "seo": { "title": "Contact us", "description": "Get a free, no-obligation quote from Hammer Construction Scotland. Covering Kilmarnock and East Ayrshire." },
+  "hero": {
+    "eyebrow": "Contact",
+    "title": "Let's talk about your project",
+    "text": "Call, email or send us the form below. We reply within one working day.",
+    "image": "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1600&q=80"
+  },
+  "cta": {
+    "eyebrow": "Get in touch",
+    "title": "Ready to start your project?",
+    "text": "Tell us what you have in mind and we'll get back to you within one working day with next steps.",
+    "formTitle": "Request a free quote",
+    "successMessage": "Thanks! Your enquiry has been sent. We'll be in touch within one working day."
+  }
+}

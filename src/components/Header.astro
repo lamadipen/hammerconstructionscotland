@@ -1,0 +1,46 @@
+---
+import Icon from './Icon.astro';
+import { site, telHref } from '../lib/content';
+const path = Astro.url.pathname.replace(/\.html$/, '').replace(/\/$/, '') || '/';
+const isActive = (link: string) => !link.includes('#') && link !== '/' && (path === link || path.startsWith(link + '/'));
+---
+<header id="site-header">
+  <div class="wrap nav">
+    <a href="/" class="brand" aria-label={`${site.name} home`}>
+      <img src="/images/logo-mark.jpg" alt="" width="77" height="40">
+      <span class="brand-text">{site.shortName}<small>{site.tagline}</small></span>
+    </a>
+    <nav class="nav-links" aria-label="Main">
+      {site.nav.map((item) => (
+        <a href={item.link} class={isActive(item.link) ? 'active' : undefined} aria-current={isActive(item.link) ? 'page' : undefined}>{item.label}</a>
+      ))}
+    </nav>
+    <div class="nav-cta">
+      <a class="nav-phone" href={telHref(site.phone)} aria-label={`Call ${site.phone}`}>
+        <Icon name="phone" />
+        <span>{site.phone}</span>
+      </a>
+      <a href={site.headerCta.link} class="btn btn-dark">{site.headerCta.label}</a>
+      <button class="menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-nav"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+  <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile">
+    <ul>
+      {site.nav.map((item) => <li><a href={item.link}>{item.label}</a></li>)}
+      <li><a href={site.headerCta.link} class="btn btn-primary">{site.headerCta.label}</a></li>
+    </ul>
+  </nav>
+</header>
+
+<script>
+  const header = document.getElementById('site-header')!;
+  const btn = header.querySelector<HTMLButtonElement>('.menu-btn')!;
+  const toggle = (open: boolean) => {
+    header.classList.toggle('open', open);
+    btn.setAttribute('aria-expanded', String(open));
+    btn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+  };
+  btn.addEventListener('click', () => toggle(!header.classList.contains('open')));
+  header.querySelectorAll('.mobile-nav a').forEach((a) => a.addEventListener('click', () => toggle(false)));
+  document.addEventListener('keydown', (e) => e.key === 'Escape' && toggle(false));
+</script>

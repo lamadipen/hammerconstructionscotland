@@ -1,0 +1,15 @@
+---
+import SectionHead from './SectionHead.astro';
+import { home } from '../lib/content';
+const { eyebrow, title, steps } = home.process;
+---
+<section>
+  <div class="wrap">
+    <SectionHead eyebrow={eyebrow} title={title} />
+    <div class="process">
+      {steps.map((s, i) => (
+        <div class="step"><b>{String(i + 1).padStart(2, '0')}</b><h3>{s.title}</h3><p>{s.text}</p></div>
+      ))}
+    </div>
+  </div>
+</section>

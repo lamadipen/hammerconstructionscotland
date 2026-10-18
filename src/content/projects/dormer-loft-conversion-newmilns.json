@@ -1,0 +1,14 @@
+{
+  "title": "Dormer loft conversion",
+  "service": "loft-conversions",
+  "location": "Newmilns",
+  "date": "2025-02-01",
+  "featured": true,
+  "order": 3,
+  "image": "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1600&q=80",
+  "summary": "A dormer loft conversion adding a double bedroom and shower room.",
+  "body": "By adding a rear dormer we gained full head height across most of the loft, creating a double bedroom with an en-suite shower room and plenty of built-in storage.",
+  "gallery": [
+    "https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=1600&q=80"
+  ]
+}

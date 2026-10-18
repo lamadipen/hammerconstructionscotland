@@ -1,0 +1,42 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import SectionHead from '../components/SectionHead.astro';
+import Stats from '../components/Stats.astro';
+import Process from '../components/Process.astro';
+import Reviews from '../components/Reviews.astro';
+import ContactBlock from '../components/ContactBlock.astro';
+import { about, md, rich } from '../lib/content';
+const { hero, story, values } = about;
+---
+<Base title={about.seo.title} description={about.seo.description}>
+  <PageHero eyebrow={hero.eyebrow} title={hero.title} text={hero.text} image={hero.image} crumbs={[{ label: 'About' }]} />
+
+  <section>
+    <div class="wrap story-grid">
+      <img src={story.image} alt={story.imageAlt} loading="lazy">
+      <div>
+        <span class="eyebrow">{story.eyebrow}</span>
+        <h2 set:html={rich(story.title)} />
+        <div class="prose" set:html={md(story.body)} />
+      </div>
+    </div>
+  </section>
+
+  <div class="stat-band"><div class="wrap"><Stats /></div></div>
+
+  <section style="padding-top:0">
+    <div class="wrap">
+      <SectionHead eyebrow={values.eyebrow} title={values.title} />
+      <div class="values">
+        {values.items.map((v, i) => (
+          <div class="value"><b>{String(i + 1).padStart(2, '0')}</b><h3>{v.title}</h3><p>{v.text}</p></div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <Process />
+  <Reviews />
+  <ContactBlock />
+</Base>
